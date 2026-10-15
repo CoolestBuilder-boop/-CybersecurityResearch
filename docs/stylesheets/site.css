@@ -1,0 +1,610 @@
+/* The site's palette, its type and the landing page. mkdocs.yml names the palette "custom", and
+ * these variables are what custom resolves to, one set per scheme. mkdocs.yml loads the faces.
+ */
+
+/* Ink is the header and the hero, signal marks what matters, the link colour is the one colour a
+ * reader acts on, and in the dark scheme violet answers the pointer. */
+:root {
+  --site-ink: #1d1850;
+  --site-ink-2: #261f5e;
+  --site-signal: #6fdcb4;
+  --site-signal-deep: #0f7a53;
+  --site-head-font: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --site-radius: 0.5rem;
+}
+
+[data-md-color-scheme="default"] {
+  --md-default-bg-color: #fbfbfe;
+  --md-default-fg-color: #17163a;
+  --md-default-fg-color--light: rgba(23, 22, 58, 0.68);
+  --md-default-fg-color--lighter: rgba(23, 22, 58, 0.36);
+  --md-default-fg-color--lightest: rgba(23, 22, 58, 0.1);
+  --md-primary-fg-color: var(--site-ink);
+  --md-primary-fg-color--light: var(--site-ink-2);
+  --md-primary-fg-color--dark: #100d30;
+  --md-primary-bg-color: #f3f2fb;
+  --md-accent-fg-color: #0f7a53;
+  --md-typeset-a-color: #3346d3;
+  --md-code-bg-color: #f0eff8;
+  --md-code-fg-color: #262356;
+  --site-tint: #efeef9;
+}
+
+[data-md-color-scheme="slate"] {
+  --md-hue: 245;
+  --md-default-bg-color: #131331;
+  --md-default-fg-color: #e4e3f5;
+  --md-default-fg-color--light: rgba(228, 227, 245, 0.7);
+  --md-default-fg-color--lighter: rgba(228, 227, 245, 0.4);
+  --md-default-fg-color--lightest: rgba(228, 227, 245, 0.1);
+  --md-primary-fg-color: var(--site-ink);
+  --md-primary-fg-color--light: var(--site-ink-2);
+  --md-primary-fg-color--dark: #0a0822;
+  --md-accent-fg-color: #b49cff;
+  --md-typeset-a-color: #8ab8ff;
+  --md-code-bg-color: #1b1b3d;
+  --md-code-fg-color: #e0dff5;
+  --site-tint: #1c1940;
+}
+
+/* Header and tabs: one ink band, with a signal rule under it. */
+.md-header {
+  border-bottom: 2px solid var(--site-signal);
+  box-shadow: none;
+}
+
+.md-header[data-md-state="shadow"],
+.md-header--shadow {
+  box-shadow: 0 0.6rem 1.2rem -1rem rgba(16, 13, 48, 0.6);
+}
+
+.md-tabs {
+  background-color: var(--md-primary-fg-color);
+}
+
+.md-tabs__link {
+  font-family: var(--site-head-font);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  opacity: 0.72;
+}
+
+.md-tabs__link--active,
+.md-tabs__link:hover {
+  opacity: 1;
+  color: #ffffff;
+}
+
+.md-tabs__link--active {
+  box-shadow: inset 0 -2px 0 var(--site-signal);
+}
+
+.md-header__title {
+  font-family: var(--site-head-font);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.md-search__form {
+  border-radius: var(--site-radius);
+}
+
+/* Where the page links show as a row, they sit in the header row itself, centered on the page, and
+ * the bar is one line. The page title in the header gives up its place to them and keeps its width,
+ * which holds the search at the right, and the repository link there is its mark alone. */
+@media screen and (min-width: 76.25em) {
+  .md-header {
+    position: sticky;
+  }
+
+  .md-tabs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.4rem;
+    background-color: transparent;
+    pointer-events: none;
+  }
+
+  /* The row spans the bar, so it takes no clicks itself: only the page links in it do, and the logo,
+   * the scheme toggle, the search and the repository link under it stay reachable. */
+  .md-tabs__list {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2.4rem;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .md-tabs__item {
+    height: auto;
+    padding: 0 0.6rem;
+    pointer-events: auto;
+  }
+
+  .md-tabs__link {
+    margin-top: 0;
+    padding: 0.3rem 0;
+  }
+
+  .md-header__title {
+    visibility: hidden;
+  }
+
+  .md-header__source {
+    width: auto;
+    margin-left: 0.4rem;
+  }
+
+  .md-header__source .md-source__repository {
+    display: none;
+  }
+}
+
+/* The foot of the page: one centered line, the copyright, the credit and the repository link. */
+.md-footer-meta {
+  background-color: var(--md-primary-fg-color--dark);
+}
+
+.md-footer-meta__inner {
+  justify-content: center;
+  align-items: center;
+  column-gap: 0.8rem;
+  padding: 0.15rem 0;
+}
+
+.md-footer-meta .md-copyright {
+  width: auto;
+  margin: 0;
+  padding: 0.25rem 0;
+  font-size: 0.55rem;
+  text-align: center;
+}
+
+.md-footer-meta .md-copyright__highlight {
+  display: inline;
+  margin-right: 0.4rem;
+}
+
+.md-footer-meta .md-social {
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.md-footer-meta .md-social__link {
+  display: flex;
+  align-items: center;
+  width: 0.8rem;
+  height: 0.8rem;
+}
+
+.md-footer-meta .md-social__link svg {
+  vertical-align: baseline;
+}
+
+/* Body type: a serif for reading at length, set beside the serif of the math. */
+.md-typeset {
+  font-size: 0.84rem;
+  line-height: 1.72;
+  font-feature-settings: "kern", "liga", "onum";
+}
+
+/* Headings in the sans, tight and heavy. The page heading and each section heading are centered. */
+.md-typeset h1,
+.md-typeset h2,
+.md-typeset h3,
+.md-typeset h4 {
+  font-family: var(--site-head-font);
+  color: var(--md-default-fg-color);
+}
+
+.md-content .md-typeset h1,
+.md-content .md-typeset h2 {
+  text-align: center;
+}
+
+.md-content .md-typeset h1 {
+  font-size: 2.1em;
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.md-content .md-typeset h2 {
+  margin-top: 2.2em;
+  font-size: 1.45em;
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+
+/* The rule under a section heading is short and centered under it, in the signal colour. */
+.md-content .md-typeset h2::after {
+  content: "";
+  display: block;
+  width: 2.2rem;
+  height: 2px;
+  margin: 0.55rem auto 0;
+  background-color: var(--site-signal);
+}
+
+.md-typeset h3 {
+  font-size: 1.12em;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset a {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 35%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: text-decoration-color 0.15s ease;
+}
+
+.md-typeset a:hover {
+  text-decoration-color: currentColor;
+}
+
+.md-typeset .headerlink,
+.md-typeset .md-button,
+.md-typeset .grid.cards a,
+.md-typeset .md-content__button {
+  text-decoration: none;
+}
+
+.md-typeset :focus-visible,
+.md-header :focus-visible,
+.md-nav :focus-visible {
+  outline: 2px solid var(--site-signal);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+.md-typeset code {
+  border-radius: 0.25rem;
+  font-size: 0.82em;
+}
+
+.md-typeset pre > code {
+  border-radius: var(--site-radius);
+}
+
+.md-typeset blockquote {
+  border-left: 3px solid var(--site-signal);
+  color: var(--md-default-fg-color--light);
+}
+
+/* The side navigation and the table of contents, in the heading face. */
+.md-nav {
+  font-family: var(--site-head-font);
+}
+
+.md-nav__title {
+  font-weight: 700;
+  color: var(--md-default-fg-color);
+}
+
+.md-nav__link--active {
+  font-weight: 600;
+}
+
+.md-nav--secondary .md-nav__link--active {
+  color: var(--md-typeset-a-color);
+}
+
+/* Tables: an ink rule above and below, a quiet head, readable rows. */
+.md-typeset table:not([class]) {
+  border: none;
+  border-top: 2px solid var(--md-default-fg-color);
+  border-bottom: 2px solid var(--md-default-fg-color);
+  border-radius: 0;
+  font-size: 0.74rem;
+}
+
+.md-typeset table:not([class]) th {
+  font-family: var(--site-head-font);
+  font-weight: 600;
+  background-color: transparent;
+  border-bottom: 1px solid var(--md-default-fg-color--lighter);
+}
+
+.md-typeset table:not([class]) td {
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+
+.md-typeset table:not([class]) td:first-child code {
+  white-space: nowrap;
+}
+
+.md-typeset table:not([class]) tr:hover {
+  background-color: var(--site-tint);
+  box-shadow: none;
+}
+
+/* Admonitions take the page's palette. */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--site-radius);
+  box-shadow: none;
+  font-size: 0.78rem;
+}
+
+/* The bibliography: each entry is a paragraph hung from its key, and the key is the anchor a
+ * citation lands on. */
+.md-typeset .site-bibliography > p {
+  padding-left: 2em;
+  text-indent: -2em;
+}
+
+.md-typeset .site-bibliography > p:target {
+  background-color: var(--site-tint);
+  box-shadow: 0 0 0 0.4rem var(--site-tint);
+  border-radius: 2px;
+}
+
+/* The landing page. The hero is the ink band the header opens into. */
+.site-hero {
+  position: relative;
+  margin: 0 0 2.6rem;
+  padding: 4rem 2.5rem 3.4rem;
+  border-radius: 0.9rem;
+  color: #f3f2fb;
+  background-color: var(--site-ink);
+  background-image: radial-gradient(70% 90% at 50% 45%, var(--site-ink) 35%, rgba(29, 24, 80, 0) 100%);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* On the dark page the hero sits a step darker than the page, inside a hairline. */
+[data-md-color-scheme="slate"] .site-hero {
+  background-color: #0f0d2e;
+  background-image: radial-gradient(70% 90% at 50% 45%, #0f0d2e 35%, rgba(15, 13, 46, 0) 100%);
+  box-shadow: inset 0 0 0 1px rgba(228, 227, 245, 0.09);
+}
+
+/* The hero reads centered: the name and the lede on one line, the text and the buttons under them. */
+.md-typeset .site-hero {
+  text-align: center;
+}
+
+.site-title {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+  column-gap: 1.1rem;
+  margin: 0 0 1.1rem;
+}
+
+.md-typeset .site-hero .site-title h1,
+.md-typeset .site-hero .site-title .site-lede {
+  margin: 0;
+}
+
+.md-typeset .site-title .site-lede::before {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-right: 1.1rem;
+  vertical-align: -0.18em;
+  background-color: var(--site-signal);
+}
+
+.md-typeset .site-hero h1 {
+  margin: 0 0 0.8rem;
+  font-size: 4.2rem;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.055em;
+  color: #ffffff;
+}
+
+.md-typeset .site-hero h1::after {
+  display: none;
+}
+
+.md-typeset .site-hero .headerlink {
+  display: none;
+}
+
+.md-typeset .site-lede {
+  max-width: 36rem;
+  font-family: var(--site-head-font);
+  font-size: 1.2rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.005em;
+  color: #e8e6f7;
+}
+
+.md-typeset .site-hero p:not(.site-lede) {
+  max-width: 34rem;
+  margin: 0 auto 1.6rem;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  color: #bcb8e0;
+}
+
+.md-typeset .site-hero .md-button {
+  margin: 0.35rem 0.25rem 0;
+  padding: 0.5em 1.1em;
+  border: 1px solid rgba(230, 233, 245, 0.28);
+  border-radius: 0.4rem;
+  font-family: var(--site-head-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #e8e6f7;
+  background-color: rgba(29, 24, 80, 0.55);
+  backdrop-filter: blur(2px);
+  transition: border-color 0.15s ease, background-color 0.15s ease, color 0.15s ease;
+}
+
+.md-typeset .site-hero .md-button:hover {
+  border-color: var(--site-signal);
+  background-color: rgba(111, 220, 180, 0.1);
+  color: #ffffff;
+}
+
+.md-typeset .site-hero .md-button--primary {
+  border-color: var(--site-signal);
+  color: var(--site-ink);
+  background-color: var(--site-signal);
+}
+
+.md-typeset .site-hero .md-button--primary:hover {
+  color: var(--site-ink);
+  background-color: #9ae8cb;
+}
+
+/* Results: one measured number per tile, the number large and what it counts under it. The tiles
+ * are columns of a table more than cards, so they share rules and no box. */
+.site-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1.6rem;
+  row-gap: 1.4rem;
+  margin: 1.4rem 0 2.4rem;
+}
+
+.site-stats > div {
+  padding: 0.7rem 0 0;
+  border-top: 2px solid var(--md-default-fg-color);
+}
+
+.md-typeset .site-stats strong {
+  display: block;
+  font-family: var(--site-head-font);
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .site-stats span {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.74rem;
+  line-height: 1.5;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Cards: a tinted panel, the title in the heading face, and the whole panel is the link. The link's
+ * box is stretched over the card, so a click anywhere on it goes where the link goes; the border
+ * takes the signal colour under the pointer and around the focused link. */
+.md-typeset .grid.cards > ul > li,
+.md-typeset .grid > .card {
+  position: relative;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: var(--site-radius);
+  background-color: var(--site-tint);
+  box-shadow: none;
+  transition: border-color 0.15s ease;
+}
+
+.md-typeset .grid.cards > ul > li:has(a):hover,
+.md-typeset .grid.cards > ul > li:has(a:focus-visible),
+.md-typeset .grid > .card:has(a):hover {
+  border-color: var(--site-signal);
+  box-shadow: none;
+}
+
+.md-typeset .grid.cards > ul > li a::after,
+.md-typeset .grid > .card a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.md-typeset .grid.cards > ul > li a:focus-visible,
+.md-typeset .grid > .card a:focus-visible {
+  outline: none;
+}
+
+/* The links in a card read as part of it: the title in the ink of the text, the link under it in
+ * the heading face, quieter, with its arrow in the signal colour. */
+.md-typeset .grid.cards a,
+.md-typeset .grid.cards a:hover {
+  color: var(--md-default-fg-color);
+  text-decoration: none;
+}
+
+.md-typeset .grid.cards > ul > li > p:last-child > a:only-child {
+  font-family: var(--site-head-font);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--md-default-fg-color--light);
+  transition: color 0.15s ease;
+}
+
+.md-typeset .grid.cards > ul > li:hover > p:last-child > a:only-child {
+  color: var(--md-default-fg-color);
+}
+
+.md-typeset .grid.cards > ul > li > p:last-child > a:only-child .twemoji {
+  color: var(--site-signal-deep);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards > ul > li > p:last-child > a:only-child .twemoji {
+  color: var(--site-signal);
+}
+
+.md-typeset .grid.cards > ul > li > hr {
+  margin: 0.6rem 0;
+  border-bottom-color: var(--md-default-fg-color--lightest);
+}
+
+.md-typeset .grid.cards strong {
+  font-family: var(--site-head-font);
+  font-weight: 650;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset .grid.cards .lg {
+  color: var(--site-signal-deep);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .grid.cards .lg {
+  color: var(--site-signal);
+}
+
+/* The landing page opens on the hero, with no source button beside it. */
+.md-content__inner:has(.site-hero) > .md-content__button {
+  display: none;
+}
+
+@media screen and (max-width: 44.9375em) {
+  .site-hero {
+    padding: 2.6rem 1.2rem 2.2rem;
+    border-radius: 0.6rem;
+  }
+
+  .md-typeset .site-hero h1 {
+    font-size: 3rem;
+  }
+
+  .md-typeset .site-title .site-lede::before {
+    display: none;
+  }
+
+  .site-stats {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .md-typeset a,
+  .md-typeset .site-hero .md-button,
+  .md-typeset .grid.cards > ul > li {
+    transition: none;
+  }
+}

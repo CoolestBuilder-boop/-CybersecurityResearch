@@ -1,0 +1,112 @@
+# Site configuration. The markdown under docs/ is the source and nothing here rewrites it, so a
+# file reads the same on GitHub as it does on the site.
+#
+#   pip install -r requirements.txt
+#   mkdocs serve     # http://127.0.0.1:8000, rebuilds as you edit
+#   mkdocs build     # writes site/
+#
+# Deployment is the GitHub Action in .github/workflows/docs.yml. Nothing needs running by hand.
+#
+# The five values under this comment are the ones to change when the template becomes a project.
+
+site_name: ResearchProjectTemplate
+site_description: A research project, published from its docs/ directory.
+site_url: https://dstroy0.github.io/ResearchProjectTemplate/
+repo_url: https://github.com/dstroy0/ResearchProjectTemplate
+repo_name: dstroy0/ResearchProjectTemplate
+edit_uri: edit/main/docs/
+copyright: Copyright &copy; 2026 Douglas Quigg (dstroy0).
+
+# docs/LANDING_PAGE.md is served at the root of the site. The hook stands in for the index.md that
+# mkdocs looks for by default.
+hooks:
+  - hooks/landing_page.py
+
+theme:
+  name: material
+  icon:
+    logo: material/sigma
+    repo: fontawesome/brands/github
+  favicon: assets/favicon.svg
+  font:
+    text: Source Serif 4
+    code: IBM Plex Mono
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    - content.action.view
+    - content.footnote.tooltips
+    - toc.follow
+  palette:
+    # Dark is the scheme a first visit opens in, whatever the system prefers, and light is the toggle.
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Light
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Dark
+
+plugins:
+  - search
+
+markdown_extensions:
+  # Inline and display math. Without arithmatex it renders as literal dollars.
+  - pymdownx.arithmatex:
+      generic: true
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.superfences
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+# MathJax loads beside the page and not in front of it, and nothing after it waits on the download.
+extra_javascript:
+  - javascript/mathjax.js
+  - path: https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+    async: true
+
+# The heading face is fetched beside the site's stylesheet instead of from inside it, and the two
+# load together.
+extra_css:
+  - https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@500;600;700&display=swap
+  - stylesheets/site.css
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/dstroy0/ResearchProjectTemplate
+
+# Every page on the site is listed here, in the order it appears in the header. A document that is
+# not listed is still built and still reachable by link, but mkdocs build --strict reports it.
+nav:
+  - Home: index.md
+  - Paper: PAPER.md
+  - References:
+      - Bibliography: BIBLIOGRAPHY.md
+      - Citing this work: CITATIONS.md

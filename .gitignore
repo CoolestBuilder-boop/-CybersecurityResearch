@@ -1,0 +1,11 @@
+# Build products, test output and local tooling. Everything under build/ is reproducible.
+build/
+build-*/
+
+# The rendered site. mkdocs build writes it and the GitHub Action rebuilds it on every push.
+site/
+
+# Python caches.
+__pycache__/
+*.pyc
+*.pyo

@@ -1,0 +1,61 @@
+# Builds the site from docs/ and publishes it to GitHub Pages.
+#
+# One thing has to be done by hand once, in the repository settings: Pages, Source, GitHub Actions.
+# Until that is set the build succeeds and the deploy step fails, which is the failure to expect on
+# the first run.
+
+name: docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "hooks/**"
+      - "mkdocs.yml"
+      - "requirements.txt"
+      - ".github/workflows/docs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time. A second push while the first is publishing would otherwise race it.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      # requirements.txt pins the theme. An unpinned theme means the site can change appearance on a
+      # push that touched nothing, and then the diff does not explain the difference.
+      - name: Install
+        run: pip install -r requirements.txt
+
+      - name: Build
+        run: mkdocs build --strict
+
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,27 @@
+// MathJax settings for the arithmatex extension, and the hook that re-renders after Material's
+// instant navigation swaps a page in. Without the hook, math renders on a full page load and stays
+// as literal dollar signs on every click after that. MathJax loads async, and until it has loaded
+// the hook does nothing: MathJax renders the page it arrives on by itself.
+
+window.MathJax = {
+  tex: {
+    inlineMath: [["\\(", "\\)"]],
+    displayMath: [["\\[", "\\]"]],
+    processEscapes: true,
+    processEnvironments: true
+  },
+  options: {
+    ignoreHtmlClass: ".*|",
+    processHtmlClass: "arithmatex"
+  }
+};
+
+document$.subscribe(() => {
+  if (!MathJax.startup || !MathJax.startup.output || !MathJax.typesetPromise) {
+    return;
+  }
+  MathJax.startup.output.clearCache();
+  MathJax.typesetClear();
+  MathJax.texReset();
+  MathJax.typesetPromise();
+});
